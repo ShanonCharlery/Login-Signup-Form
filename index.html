@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sign in</title>
+</head>
+<body>
+    <button class="open_signup" id="open_signup">Sign up</button>
+
+    <div class="login_form">
+        <div>
+            <h2>Sign into your account</h2>
+        </div>
+
+        <input type="email" placeholder="type your email" id="input_email" required></br>
+        <input type="password" placeholder="type your password" id="input_password" required>
+
+        <p class="login_status_text" id="login_status_text"></p>
+
+        <button class="login_btn" id="login_btn">Log in</button>
+        <a href="reset.html" class="reset_link" target="_blank">Reset password</a>  
+
+    </div>
+
+    <div class="signup_form" id="signup_form">
+        <form id="form" name="form">
+            
+            <h2>Create your account</h2>
+            <input type="text" placeholder="first name" id="first_name"required>
+            <input type="text" placeholder="last name" id="last_name"required>
+            <input type="email" placeholder="your email" id="email" required>
+            <input type="date" placeholder="your birthday" id="birthday" name="birthday" required> 
+            <input type="password" placeholder="create your password" id="password" name="password" required>
+            <div class="password_strength_container">
+                <h3>Password strength:</h3>
+                <span class="password_strength_text" id="password_strength_text"></span>
+                <div class="password_strength_indicator" id="password_strength_indicator">
+                    <div id="password_strength_level"></div>
+                </div>
+                <p>Password must be at least 8 characters and max 15 characters long.</br>
+                You need to use at least one <strong>lowercase</strong>, one <strong>uppercase</strong>, 
+                one <strong>number</strong> and one <strong>symbol</strong>.</p>
+
+            </div>
+            <input type="password" placeholder="confirm your password" id="confirm_password" name="confirm_password" required></br>
+            <input type="checkbox" class="passwords_checkbox" id="passwords_checkbox" name="passwords_checkbox">
+            <label for="passwords_checkbox" class="passwords_checkbox_label">Show passwords</label></br>
+            <input type="submit" class="signup_btn" value="Sign up" id="signup_btn">
+            
+            <p class="data_text">By clicking Sign up, your agree to our <strong class="informational_link">Terms</strong>. 
+            Learn how we collect, use and share your data in our <strong class="informational_link">Data Policy</strong> 
+            and how we use cookies and similar technology in our <strong class="informational_link">Cookies Policy</strong>.
+            You may receive emails from us and can opt out any time.</p>
+
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
