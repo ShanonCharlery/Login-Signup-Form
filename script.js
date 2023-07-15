@@ -3,6 +3,9 @@ const resetLink = document.getElementById('reset_link')
 const openSignup = document.getElementById('open_signup')
 const form = document.getElementById('form')
 const signupBtn = document.getElementById('signup_btn')
+const previousBtnContainer = document.getElementById('previous_btn_container')
+let firstName = document.getElementById('first_name')
+let lastName = document.getElementById('last_name')
 let birthday = document.getElementById('birthday')
 let email = document.getElementById('email')
 let password = document.getElementById('password')
@@ -20,13 +23,19 @@ loginBtn.addEventListener('click', function(){
     let loginEmail = localStorage.getItem('email')
     let loginPassword = localStorage.getItem('password')
 
-    if(inputEmail.value !== loginEmail || inputPassword.value !== loginPassword){
-
-        loginStatusText.innerText = 'Your email or your password is wrong.'
+    if(inputEmail.value !== loginEmail){
+        loginStatusText.innerText = 'Your email is unknown in our database.'
+        document.getElementById('input_email').value = ''
         return false
-    }else{
 
-        alert("Congratulations, you are logged in.")
+    }else if(inputPassword.value !== loginPassword){
+        loginStatusText.innerText = 'Your password is wrong.'
+        document.getElementById('input_password').value = ''
+        return false
+
+    }else{
+        loginStatusText.innerText = ''
+        window.location.href = "loggedin.html"
         return true
     }
 })
@@ -36,6 +45,14 @@ openSignup.addEventListener('click', function(){
     document.getElementById('open_signup').style.visibility ='hidden'
 })
 
+previousBtnContainer.addEventListener('click', function(){
+    form.reset()
+    document.getElementById('signup_form').style.display ='none'
+    document.getElementById('open_signup').style.visibility ='visible'
+})
+
+
+
 //signup form submition
 form.addEventListener('submit', (e) =>{
     e.preventDefault()
@@ -43,10 +60,7 @@ form.addEventListener('submit', (e) =>{
 
 signupBtn.addEventListener('click', (e) =>{
     
-    if(validatePasswordConfirmation() === true){
-
-    let firstName = document.getElementById('first_name')
-    let lastName = document.getElementById('last_name')
+    if(validatePasswordConfirmation() === true & checkAge() === true){
 
     firstName = firstName.value
     localStorage.setItem('firstName', firstName)
@@ -62,9 +76,30 @@ signupBtn.addEventListener('click', (e) =>{
 
     password = password.value
     localStorage.setItem('password', password)
-
-    }
+    
+    clearSignupForm()
+    document.getElementById('signup_form').style.display ='none'
+    document.getElementById('open_signup').style.visibility ='visible'
+}
+ 
 })
+
+function clearSignupForm(){
+    form.reset()
+    document.getElementById('password_match_alert').innerHTML = ''
+}
+
+
+//shows or hides the password strength message
+password.addEventListener('focus', function (){
+    passwordStrengthContainer.style.display='block'
+    document.getElementById('password_strength_container_arrow').style.display='block'
+})
+
+password.addEventListener('blur', function (){
+    passwordStrengthContainer.style.display='none'
+})
+    
 
 //checks password strength
 function setStrength(value){
@@ -145,7 +180,7 @@ password.addEventListener('keyup', checkPasswordStrength);
 //checks password confirmation
 function validatePasswordConfirmation(){
     if(password.value !== confirmPassword.value){
-        alert("The two passwords do not match, please retype. ")
+        document.getElementById('password_match_alert').innerText="Your passwords do not match."
         return false
     }
 
@@ -154,20 +189,38 @@ function validatePasswordConfirmation(){
     }
 }
 
+
+function clearPasswordMatchArlert(){
+    if(password.value==empty && confirmPassword.value==empty){
+    document.getElementById('password_match_alert').innerHTML = ''
+}}
+
+
+
 //shows or hides the password
 passwordsCheckbox.addEventListener('click', function (){
-    if(password.type==='password' && confirmPassword.type==='password'){
+    if(password.type==='password'){
         password.type='text'
-        confirmPassword.type='text'
-    }
-
-    else{
+    }else{
         password.type = "password"
-        confirmPassword.type='password'
     }
 })
 
+//check if user is adult
+function checkAge(){
+    birthdayValue = birthday.value
+    let todayDate = new Date()
+    let birthdayYear = new Date(birthdayValue).getFullYear()
+    let todayYear = todayDate.getFullYear()
+    let age = todayYear - birthdayYear
 
+    if (age <= 18) {
+        document.getElementById('age_alert').innerText="You must be at least 18 to sign up."
+        return false
+      } else {
+        return true
+      }
+}
 
 
 
